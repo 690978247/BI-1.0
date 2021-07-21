@@ -1,0 +1,10 @@
+发布url地址： https://slmapi.shengyc.com
+发布domain:  shengyc.com
+登录url: https://slm.shengyc.com/#/login
+
+
+
+预发布
+SLM Web：https://slmpre.sycdev.com
+BI Web: https://bipre.sycdev.com
+BI 后端: https://apipre.sycdev.com/bi
