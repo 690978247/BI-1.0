@@ -1527,7 +1527,12 @@ function getEchartList(index) {
         // </div>`
       }
     } else {
-      str += renderTimeChexkBox(index, d, i, names, '业务数据')
+      if (Controls.ControlList[index].ControlType === 'searchbutton') {
+        str += renderTimeChexkBox(index, d, i, hisNames, '历史数据')
+        str += renderTimeChexkBox(index, d, i, names, '业务数据')
+      } else {
+        str += renderTimeChexkBox(index, d, i, names, '业务数据')
+      }
       // if (types.includes(d.ControlType)) {
       //   str += `<div class="cornerbutton-checkbox r-pos">
       //     <input onclick="textsearchGetEchart(${index},this.checked,this.value, ${i}, '${d.ControlType}', event)" ${names.includes(d.Name) ?'checked':''}  value="${d.Name}" type="checkbox">${d.Name}
@@ -1794,72 +1799,158 @@ function textsearchSelectAll(index, value) {
       }
     }
   } else { // 其他组件
-    Controls.ControlList[index].EchartList = []
-    if (value) {
-      let checkboxList = $("#showAsdatetimepickerHtml").find("input[type='checkbox']")
-      if (checkboxList.length > 0) {
-        Controls.Data.LineChartItemList.forEach((item, cIndex) => { // 折线图
-          item.defaultDataConfig.dataChart.forEach((d, i) => {
-            if (item.defaultDataConfig.tablename === d.nameCn) {
-              let field = JSON.parse(d.field)
-              Controls.ControlList[index].EchartList.push({
-                ...item,
-                selectValue: item.name,
-                fieldChartData: field,
-                fieldId: d.id,
-                field: item.filed
-              })
-            }
+    if (Controls.ControlList[index].ControlType !== 'searchbutton') {
+      Controls.ControlList[index].EchartList = []
+      if (value) {
+        let checkboxList = $("#showAsdatetimepickerHtml").find("input[type='checkbox']")
+        if (checkboxList.length > 0) {
+          Controls.Data.LineChartItemList.forEach((item, cIndex) => { // 折线图
+            item.defaultDataConfig.dataChart.forEach((d, i) => {
+              if (item.defaultDataConfig.tablename === d.nameCn) {
+                let field = JSON.parse(d.field)
+                Controls.ControlList[index].EchartList.push({
+                  ...item,
+                  selectValue: item.name,
+                  fieldChartData: field,
+                  fieldId: d.id,
+                  field: item.filed
+                })
+              }
+            })
           })
-        })
-        Controls.Data.BarChartItemList.forEach((item, cIndex) => { //柱状图
-          item.defaultDataConfig.dataChart.forEach((d, i) => {
-            if (item.defaultDataConfig.tablename === d.nameCn) {
-              let field = JSON.parse(d.field)
-              Controls.ControlList[index].EchartList.push({
-                ...item,
-                selectValue: item.name,
-                fieldChartData: field,
-                fieldId: d.id,
-                field: item.filed
-              })
-            }
-          })
+          Controls.Data.BarChartItemList.forEach((item, cIndex) => { //柱状图
+            item.defaultDataConfig.dataChart.forEach((d, i) => {
+              if (item.defaultDataConfig.tablename === d.nameCn) {
+                let field = JSON.parse(d.field)
+                Controls.ControlList[index].EchartList.push({
+                  ...item,
+                  selectValue: item.name,
+                  fieldChartData: field,
+                  fieldId: d.id,
+                  field: item.filed
+                })
+              }
+            })
 
-        })
-
-        Controls.Data.PieChartItemList.forEach((item, cIndex) => { //饼图
-          item.defaultDataConfig.dataChart.forEach((d, i) => {
-            if (item.defaultDataConfig.tablename === d.nameCn) {
-              let field = JSON.parse(d.field)
-              Controls.ControlList[index].EchartList.push({
-                ...item,
-                selectValue: item.name,
-                fieldChartData: field,
-                fieldId: d.id,
-                field: item.filed
-              })
-            }
           })
 
-        })
+          Controls.Data.PieChartItemList.forEach((item, cIndex) => { //饼图
+            item.defaultDataConfig.dataChart.forEach((d, i) => {
+              if (item.defaultDataConfig.tablename === d.nameCn) {
+                let field = JSON.parse(d.field)
+                Controls.ControlList[index].EchartList.push({
+                  ...item,
+                  selectValue: item.name,
+                  fieldChartData: field,
+                  fieldId: d.id,
+                  field: item.filed
+                })
+              }
+            })
 
-        Controls.Data.DashBoardChartItemList.forEach((item, cIndex) => { //仪表盘
-          item.defaultDataConfig.dataChart.forEach((d, i) => {
-            if (item.defaultDataConfig.tablename === d.nameCn) {
-              let field = JSON.parse(d.field)
-              Controls.ControlList[index].EchartList.push({
-                ...item,
-                selectValue: item.name,
-                fieldChartData: field,
-                fieldId: d.id,
-                field: item.filed
+          })
+
+          Controls.Data.DashBoardChartItemList.forEach((item, cIndex) => { //仪表盘
+            item.defaultDataConfig.dataChart.forEach((d, i) => {
+              if (item.defaultDataConfig.tablename === d.nameCn) {
+                let field = JSON.parse(d.field)
+                Controls.ControlList[index].EchartList.push({
+                  ...item,
+                  selectValue: item.name,
+                  fieldChartData: field,
+                  fieldId: d.id,
+                  field: item.filed
+                })
+              }
+            })
+
+          })
+
+        }
+      }
+    } else {  // 查询按钮组件
+      Controls.ControlList[index].EchartList = []
+      Controls.ControlList[index].HistoryList = []
+      if (value) {
+        let checkboxList = $("#showAsdatetimepickerHtml").find("input[type='checkbox']")
+        if (checkboxList.length > 0) {
+          Controls.Data.LineChartItemList.forEach((item, cIndex) => { // 折线图
+              if (item.defaultDataConfig.datatype === '业务数据') {
+              item.defaultDataConfig.dataChart.forEach((d, i) => {
+                if (item.defaultDataConfig.tablename === d.nameCn) {
+                  let field = JSON.parse(d.field)
+                  Controls.ControlList[index].EchartList.push({
+                    ...item,
+                    selectValue: item.name,
+                    fieldChartData: field,
+                    fieldId: d.id,
+                    field: item.filed
+                  })
+                }
               })
+            } else if (item.defaultDataConfig.datatype === '历史数据') {
+              Controls.ControlList[index].HistoryList.push({...item, selectValue: item.name})
+            }
+          })
+          Controls.Data.BarChartItemList.forEach((item, cIndex) => { //柱状图
+            if (item.defaultDataConfig.datatype === '业务数据') {
+              item.defaultDataConfig.dataChart.forEach((d, i) => {
+                if (item.defaultDataConfig.tablename === d.nameCn) {
+                  let field = JSON.parse(d.field)
+                  Controls.ControlList[index].EchartList.push({
+                    ...item,
+                    selectValue: item.name,
+                    fieldChartData: field,
+                    fieldId: d.id,
+                    field: item.filed
+                  })
+                }
+              })
+            } else if (item.defaultDataConfig.datatype === '历史数据') {
+              Controls.ControlList[index].HistoryList.push({...item, selectValue: item.name})
+            }
+
+          })
+
+          Controls.Data.PieChartItemList.forEach((item, cIndex) => { //饼图
+            if (item.defaultDataConfig.datatype === '业务数据') {
+              item.defaultDataConfig.dataChart.forEach((d, i) => {
+                if (item.defaultDataConfig.tablename === d.nameCn) {
+                  let field = JSON.parse(d.field)
+                  Controls.ControlList[index].EchartList.push({
+                    ...item,
+                    selectValue: item.name,
+                    fieldChartData: field,
+                    fieldId: d.id,
+                    field: item.filed
+                  })
+                }
+              })
+            } else if (item.defaultDataConfig.datatype === '历史数据') {
+              Controls.ControlList[index].HistoryList.push({...item, selectValue: item.name})
             }
           })
 
-        })
+          Controls.Data.DashBoardChartItemList.forEach((item, cIndex) => { //仪表盘
+            if (item.defaultDataConfig.datatype === '业务数据') {
+              item.defaultDataConfig.dataChart.forEach((d, i) => {
+                if (item.defaultDataConfig.tablename === d.nameCn) {
+                  let field = JSON.parse(d.field)
+                  Controls.ControlList[index].EchartList.push({
+                    ...item,
+                    selectValue: item.name,
+                    fieldChartData: field,
+                    fieldId: d.id,
+                    field: item.filed
+                  })
+                }
+              })
+            } else if (item.defaultDataConfig.datatype === '历史数据') {
+              Controls.ControlList[index].HistoryList.push({...item, selectValue: item.name})
+            }
+          })
 
+        }
       }
     }
   }
@@ -1899,26 +1990,32 @@ function textsearchGetEchart(index, checked, value, id, type, event) {
           }
         })
       } else {
-        Controls.Data.LineChartItemList.forEach((item, cIndex) => {
-          if (item.defaultDataConfig.dataChart.length === 0) {
-            event.target.checked = false
-            appTips.warningMsg('此图表无业务数据,请先填充业务数据');
-          } else {
-            item.defaultDataConfig.dataChart.forEach((d, i) => {
-              if (item.defaultDataConfig.tablename === d.nameCn) {
-                let field = JSON.parse(d.field)
-                if (item.name === value) {
-                  Controls.ControlList[index].EchartList.push({
-                    ...item,
-                    selectValue: value,
-                    fieldChartData: field,
-                    fieldId: d.id
-                  })
-                }
+          Controls.Data.LineChartItemList.forEach((item, cIndex) => {
+            if (item.defaultDataConfig.datatype === '业务数据') {
+              if (item.defaultDataConfig.dataChart.length === 0) {
+                event.target.checked = false
+                appTips.warningMsg('此图表无业务数据,请先填充业务数据');
+              } else {
+                item.defaultDataConfig.dataChart.forEach((d, i) => {
+                  if (item.defaultDataConfig.tablename === d.nameCn) {
+                    let field = JSON.parse(d.field)
+                    if (item.name === value) {
+                      Controls.ControlList[index].EchartList.push({
+                        ...item,
+                        selectValue: value,
+                        fieldChartData: field,
+                        fieldId: d.id
+                      })
+                    }
+                  }
+                })
               }
-            })
-          }
-        })
+            } else if (item.defaultDataConfig.datatype === '历史数据')  {
+              if (item.name === value) {
+                Controls.ControlList[index].HistoryList.push({...item, selectValue: value})
+              }
+            }
+          })
       }
     } else if (type === 'barchart') {
       if (Controls.ControlList[index].AsDatetimepickerType === '历史数据') {
@@ -1932,23 +2029,29 @@ function textsearchGetEchart(index, checked, value, id, type, event) {
         })
       } else {
         Controls.Data.BarChartItemList.forEach((item, cIndex) => {
-          if (item.defaultDataConfig.dataChart.length === 0) {
-            event.target.checked = false
-            appTips.warningMsg('此图表无业务数据,请先填充业务数据');
-          } else {
-            item.defaultDataConfig.dataChart.forEach((d, i) => {
-              if (item.defaultDataConfig.tablename === d.nameCn) {
-                let field = JSON.parse(d.field)
-                if (item.name === value) {
-                  Controls.ControlList[index].EchartList.push({
-                    ...item,
-                    selectValue: value,
-                    fieldChartData: field,
-                    fieldId: d.id
-                  })
+          if (item.defaultDataConfig.datatype === '业务数据') {
+            if (item.defaultDataConfig.dataChart.length === 0) {
+              event.target.checked = false
+              appTips.warningMsg('此图表无业务数据,请先填充业务数据');
+            } else {
+              item.defaultDataConfig.dataChart.forEach((d, i) => {
+                if (item.defaultDataConfig.tablename === d.nameCn) {
+                  let field = JSON.parse(d.field)
+                  if (item.name === value) {
+                    Controls.ControlList[index].EchartList.push({
+                      ...item,
+                      selectValue: value,
+                      fieldChartData: field,
+                      fieldId: d.id
+                    })
+                  }
                 }
-              }
-            })
+              })
+            }
+          } else if (item.defaultDataConfig.datatype === '历史数据')  {
+            if (item.name === value) {
+              Controls.ControlList[index].HistoryList.push({...item, selectValue: value})
+            }
           }
         })
       }
@@ -1970,23 +2073,29 @@ function textsearchGetEchart(index, checked, value, id, type, event) {
         })
       } else {
         Controls.Data.DashBoardChartItemList.forEach((item, cIndex) => {
-          if (item.defaultDataConfig.dataChart.length === 0) {
-            event.target.checked = false
-            appTips.warningMsg('此图表无业务数据,请先填充业务数据');
-          } else {
-            item.defaultDataConfig.dataChart.forEach((d, i) => {
-              if (item.defaultDataConfig.tablename === d.nameCn) {
-                let field = JSON.parse(d.field)
-                if (item.name === value) {
-                  Controls.ControlList[index].EchartList.push({
-                    ...item,
-                    selectValue: value,
-                    fieldChartData: field,
-                    fieldId: d.id
-                  })
+          if (item.defaultDataConfig.datatype === '业务数据') { 
+            if (item.defaultDataConfig.dataChart.length === 0) {
+              event.target.checked = false
+              appTips.warningMsg('此图表无业务数据,请先填充业务数据');
+            } else {
+              item.defaultDataConfig.dataChart.forEach((d, i) => {
+                if (item.defaultDataConfig.tablename === d.nameCn) {
+                  let field = JSON.parse(d.field)
+                  if (item.name === value) {
+                    Controls.ControlList[index].EchartList.push({
+                      ...item,
+                      selectValue: value,
+                      fieldChartData: field,
+                      fieldId: d.id
+                    })
+                  }
                 }
-              }
-            })
+              })
+            }
+          } else if (item.defaultDataConfig.datatype === '历史数据')  {
+            if (item.name === value) {
+              Controls.ControlList[index].HistoryList.push({...item, selectValue: value})
+            }
           }
         })
       }
@@ -2008,37 +2117,45 @@ function textsearchGetEchart(index, checked, value, id, type, event) {
         })
       } else {
         Controls.Data.PieChartItemList.forEach((item, cIndex) => {
-          if (item.defaultDataConfig.dataChart.length === 0) {
-            event.target.checked = false
-            appTips.warningMsg('此图表无业务数据,请先填充业务数据');
-          } else {
-            item.defaultDataConfig.dataChart.forEach((d, i) => {
-              if (item.defaultDataConfig.tablename === d.nameCn) {
-                let field = JSON.parse(d.field)
-                if (item.name === value) {
-                  Controls.ControlList[index].EchartList.push({
-                    ...item,
-                    selectValue: value,
-                    fieldChartData: field,
-                    fieldId: d.id
-                  })
+          if (item.defaultDataConfig.datatype === '业务数据') { 
+            if (item.defaultDataConfig.dataChart.length === 0) {
+              event.target.checked = false
+              appTips.warningMsg('此图表无业务数据,请先填充业务数据');
+            } else {
+              item.defaultDataConfig.dataChart.forEach((d, i) => {
+                if (item.defaultDataConfig.tablename === d.nameCn) {
+                  let field = JSON.parse(d.field)
+                  if (item.name === value) {
+                    Controls.ControlList[index].EchartList.push({
+                      ...item,
+                      selectValue: value,
+                      fieldChartData: field,
+                      fieldId: d.id
+                    })
+                  }
                 }
-              }
-            })
+              })
+            }
+          } else if (item.defaultDataConfig.datatype === '历史数据')  {
+            if (item.name === value) {
+              Controls.ControlList[index].HistoryList.push({...item, selectValue: value})
+            }
           }
         })
       }
     }
-    renderChartList(index)
-    let listId = null
-    let listName = ''
-    Controls.ControlList[index].EchartList.forEach((ef, efi) => {
-      if (ef.name === value) {
-        listId = efi
-        listName = ef.selectValue
-      }
-    })
-    textsearchGetSelect(index, listName, listId)
+    if (Controls.ControlList[index].ControlType !== 'searchbutton') {
+      renderChartList(index)
+      let listId = null
+      let listName = ''
+      Controls.ControlList[index].EchartList.forEach((ef, efi) => {
+        if (ef.name === value) {
+          listId = efi
+          listName = ef.selectValue
+        }
+      })
+      textsearchGetSelect(index, listName, listId)
+    }
   } else {
     if (Controls.ControlList[index].AsDatetimepickerType === '业务数据') {
       /* 图表组件 --- 业务数据 */
@@ -2065,12 +2182,26 @@ function textsearchGetEchart(index, checked, value, id, type, event) {
         }
       })
     } else { // 其他组件
-      Controls.ControlList[index].EchartList.forEach((item, i) => {
-        if (item.name === value) {
-          Controls.ControlList[index].EchartList.splice(i, 1)
-        }
-      })
-      renderChartList(index)
+      if (Controls.ControlList[index].ControlType !== 'searchbutton') {
+        Controls.ControlList[index].EchartList.forEach((item, i) => {
+          if (item.name === value) {
+            Controls.ControlList[index].EchartList.splice(i, 1)
+          }
+        })
+        renderChartList(index)
+      } else {
+        Controls.ControlList[index].EchartList.forEach((item, i) => {
+          if (item.name === value) {
+            Controls.ControlList[index].EchartList.splice(i, 1)
+          }
+        })
+
+        Controls.ControlList[index].HistoryList.forEach((item, i) => {
+          if (item.name === value) {
+            Controls.ControlList[index].HistoryList.splice(i, 1)
+          }
+        })
+      }
     }
   }
   // setTimeout(() => {

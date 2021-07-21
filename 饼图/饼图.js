@@ -245,6 +245,9 @@ function PieinitEchart(data, PieName, type) {
     // 数据关联
     form.on(`select(data)`, function (data) {
         // let realTime = document.getElementById("realTime")
+        if (BarChartData.defaultDataConfig.datatype === data.value) {
+            return
+        }
         BarChartData.defaultDataConfig.datatype = data.value
         let index = null
         parent.Controls.ControlList.forEach((c, ci) => {
@@ -252,6 +255,22 @@ function PieinitEchart(data, PieName, type) {
                 index = ci
             }
         })
+
+        parent.Controls.ControlList.forEach((item, itemi) => {
+            if (item.ControlType === 'searchbutton') {
+                parent.Controls.ControlList[itemi].EchartList.forEach((cd, cdi) => {
+                    if (cd.name === BarChartData.name) {
+                        parent.Controls.ControlList[itemi].EchartList.splice(cdi, 1)
+                    }
+                })
+                parent.Controls.ControlList[itemi].HistoryList.forEach((cd, cdi) => {
+                    if (cd.name === BarChartData.name) {
+                        parent.Controls.ControlList[itemi].HistoryList.splice(cdi, 1)
+                    }
+                })
+            }
+        })
+
         if (data.value === '历史数据') {
             realTime.style.display = 'block'
             parent.choice(parent.Controls.ControlList[index].TabEvent, index)

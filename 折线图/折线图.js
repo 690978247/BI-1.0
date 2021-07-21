@@ -315,6 +315,9 @@ function LineinitEchart(data,name,type){
 
     // 数据关联
     form.on(`select(data)`, function(data) {
+        if (BarChartData.defaultDataConfig.datatype === data.value) {
+            return
+        }
         let sheet = document.getElementById('data-sheet')
         let axial = document.getElementById('axial')
         let table = document.getElementById('ax-table')
@@ -328,6 +331,22 @@ function LineinitEchart(data,name,type){
                 index = ci
             }
         })
+
+        parent.Controls.ControlList.forEach((item, itemi) => {
+            if (item.ControlType === 'searchbutton') {
+                parent.Controls.ControlList[itemi].EchartList.forEach((cd, cdi) => {
+                    if (cd.name === BarChartData.name) {
+                        parent.Controls.ControlList[itemi].EchartList.splice(cdi, 1)
+                    }
+                })
+                parent.Controls.ControlList[itemi].HistoryList.forEach((cd, cdi) => {
+                    if (cd.name === BarChartData.name) {
+                        parent.Controls.ControlList[itemi].HistoryList.splice(cdi, 1)
+                    }
+                })
+            }
+        })
+
 
         if (data.value === '实时数据') {
             axial.style.display = 'none'

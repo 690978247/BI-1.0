@@ -213,6 +213,9 @@ function DashinitEchart(data,DashName,type){
         })
         // 数据关联
         form.on(`select(data)`, function(data) {
+            if (BarChartData.defaultDataConfig.datatype === data.value) {
+                return
+            }
             BarChartData.defaultDataConfig.datatype = data.value
             let index = null
             parent.Controls.ControlList.forEach((c, ci)=> {
@@ -220,6 +223,22 @@ function DashinitEchart(data,DashName,type){
                     index = ci
                 }
             })
+
+            parent.Controls.ControlList.forEach((item, itemi) => {
+                if (item.ControlType === 'searchbutton') {
+                    parent.Controls.ControlList[itemi].EchartList.forEach((cd, cdi) => {
+                        if (cd.name === BarChartData.name) {
+                            parent.Controls.ControlList[itemi].EchartList.splice(cdi, 1)
+                        }
+                    })
+                    parent.Controls.ControlList[itemi].HistoryList.forEach((cd, cdi) => {
+                        if (cd.name === BarChartData.name) {
+                            parent.Controls.ControlList[itemi].HistoryList.splice(cdi, 1)
+                        }
+                    })
+                }
+            })
+
             if (data.value === '业务数据') {
                 BarChartData.option.Variable.rangevalue = ''
                 BarChartData.option.Variable.FieldName = ''
