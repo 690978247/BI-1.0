@@ -396,7 +396,7 @@ function initCanvas() {
         height: ${item.PropertyList.Height}px; border-style: ${item.PropertyList.Style};border-color: ${item.PropertyList.BorderColor}; border-width: ${item.PropertyList.BorderWidth}px;
         z-index: ${item.PropertyList.ZIndex};border-radius: ${item.PropertyList.BorderRadius}px;opacity: ${Number(item.PropertyList.Opacity) / 100};">
         <div class="img-div" style="box-shadow: ${item.PropertyList.BoxShadow};" >
-          <img class="moduleShape" src="${item.PropertyList.Img}" style="position: relative; vertical-align: top; z-index: ${item.PropertyList.ZIndex - 1 };border-radius: ${item.PropertyList.BorderRadius}px;" alt="图片" />
+          <img class="moduleShape" id="image-img${index}" src="${item.PropertyList.Img}" style="position: relative; vertical-align: top; z-index: ${item.PropertyList.ZIndex - 1 };border-radius: ${item.PropertyList.BorderRadius}px;" alt="图片" />
         </div>
       </div>
         `
