@@ -31,7 +31,7 @@ function choice(type, index, refresh) {
     if (window.location.host.indexOf('127.0.0') === -1) {
       // 测试 && 开发：sycdev.com
       // 正式： shengyc.com
-      document.domain = 'shengyc.com' || '';
+      document.domain = 'sycdev.com' || '';
     }
   }
 

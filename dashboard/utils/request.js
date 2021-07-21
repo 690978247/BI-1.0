@@ -3,12 +3,12 @@ const request = axios.create({
   // 开发环境： https://apidev.sycdev.com
   // 测试环境： https://api.sycdev.com         登录界面 https://slm.sycdev.com/#/login
   // 正式环境： https://slmapi.shengyc.com    登录界面 https://slm.shengyc.com/#/login
-  baseURL: 'https://slmapi.shengyc.com', // url = base url + request url
+  baseURL: 'https://api.sycdev.com', // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 900000 // request timeout
 })
 
-let url = 'https://slm.shengyc.com/#/login'
+let url = 'https://slm.sycdev.com/#/login'
 
 
 // // request interceptor
