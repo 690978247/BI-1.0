@@ -368,7 +368,7 @@ olclick = function () {
         }  else if (item.ControlType === 'searchbutton') { //查询按钮
           html += `<div class="commonModule div-btn" draggable="false" data-id="${index}"
           style="box-shadow: ${item.PropertyList.BoxShadow};left: ${item.PropertyList.Left}px;top: ${item.PropertyList.Top}px; width: ${item.PropertyList.Width}px;line-height: ${item.PropertyList.Height - (item.PropertyList.BorderWidth * 2)}px;height: ${item.PropertyList.Height}px;z-index: ${item.PropertyList.ZIndex};border-width: ${item.PropertyList.BorderWidth}px;border-style: ${item.PropertyList.Style};border-color: ${item.PropertyList.BorderColor};background: ${item.PropertyList.BackColor}; text-align: ${item.PropertyList.TextAlign}; border-radius: ${item.PropertyList.BorderRadius}px; opacity: ${Number(item.PropertyList.Opacity) / 100};">
-          <div class="moduleShape common-input" contenteditable="true"  style="color: ${item.PropertyList.Color};font-weight: ${item.PropertyList.FontWeight};text-decoration: ${item.PropertyList.TextDecoration};
+          <div class="moduleShape common-input" style="color: ${item.PropertyList.Color};font-weight: ${item.PropertyList.FontWeight};text-decoration: ${item.PropertyList.TextDecoration};
             font-size: ${item.PropertyList.FontSize}px;font-family: ${item.PropertyList.FontFamily};" >
             <span>${item.PropertyList.Text}</span>
           </div>
@@ -376,7 +376,7 @@ olclick = function () {
         } else if (item.ControlType === 'resetbutton') { //重置按钮
           html += `<div class="commonModule div-btn" draggable="false" data-id="${index}"
           style="box-shadow: ${item.PropertyList.BoxShadow};left: ${item.PropertyList.Left}px;top: ${item.PropertyList.Top}px; width: ${item.PropertyList.Width}px;line-height: ${item.PropertyList.Height - (item.PropertyList.BorderWidth * 2)}px;height: ${item.PropertyList.Height}px;z-index: ${item.PropertyList.ZIndex};border-width: ${item.PropertyList.BorderWidth}px;border-style: ${item.PropertyList.Style};border-color: ${item.PropertyList.BorderColor};background: ${item.PropertyList.BackColor}; text-align: ${item.PropertyList.TextAlign}; border-radius: ${item.PropertyList.BorderRadius}px; opacity: ${Number(item.PropertyList.Opacity) / 100};">
-          <div class="moduleShape common-input" contenteditable="true"  style="color: ${item.PropertyList.Color};font-weight: ${item.PropertyList.FontWeight};text-decoration: ${item.PropertyList.TextDecoration};
+          <div class="moduleShape common-input" style="color: ${item.PropertyList.Color};font-weight: ${item.PropertyList.FontWeight};text-decoration: ${item.PropertyList.TextDecoration};
             font-size: ${item.PropertyList.FontSize}px;font-family: ${item.PropertyList.FontFamily};" >
             <span>${item.PropertyList.Text}</span>
           </div>

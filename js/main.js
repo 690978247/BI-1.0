@@ -565,7 +565,7 @@ function childElement(index, text, all, nowtype) {
           line-height: ${item.PropertyList.Height - (item.PropertyList.BorderWidth * 2)}px;height: ${item.PropertyList.Height}px;z-index: ${item.PropertyList.ZIndex};
           text-align: ${item.PropertyList.TextAlign}; border-radius: ${item.PropertyList.BorderRadius}px; 
           opacity: ${Number(item.PropertyList.Opacity) / 100};transform: rotate(${item.PropertyList.Rotate}deg);">
-          <input class="moduleShape common-input" contenteditable="true" style="transform: rotate(${item.PropertyList.Rotate}deg);padding:0;background-color: ${item.PropertyList.BackColor};border-radius:${item.PropertyList.BorderRadius}px;
+          <input class="moduleShape common-input" disabled="disabled" style="transform: rotate(${item.PropertyList.Rotate}deg);padding:0;background-color: ${item.PropertyList.BackColor};border-radius:${item.PropertyList.BorderRadius}px;
           border-style: ${item.PropertyList.Style};border-color: ${item.PropertyList.BorderColor}; border-width: ${item.PropertyList.BorderWidth}px;font-weight: ${item.PropertyList.FontWeight};text-decoration: ${item.PropertyList.TextDecoration};
           text-align:${item.PropertyList.TextAlign};font-weight: ${item.PropertyList.FontWeight};line-height: ${item.PropertyList.Height}px;opacity: ${Number(item.PropertyList.Opacity) / 100};
           box-shadow: ${item.PropertyList.BoxShadow};color: ${item.PropertyList.Color};font-size: ${item.PropertyList.FontSize}px;font-family: ${item.PropertyList.FontFamily};position:absolute;top:0px;left:0px" value='${item.PropertyList.Text}' onmousedown="inputdown(this,event,${index})" onblur="handleblur(event, ${index}, 'Text','menutype')" >
@@ -578,7 +578,7 @@ function childElement(index, text, all, nowtype) {
           line-height: ${item.PropertyList.Height - (item.PropertyList.BorderWidth * 2)}px;height: ${item.PropertyList.Height}px;z-index: ${item.PropertyList.ZIndex};
           background: ${item.PropertyList.BackColor}; text-align: ${item.PropertyList.TextAlign}; border-radius: ${item.PropertyList.BorderRadius}px;
            opacity: ${Number(item.PropertyList.Opacity) / 100};transform: rotate(${item.PropertyList.Rotate}deg);">
-           <input class="moduleShape common-input" contenteditable="true" style="transform: rotate(${item.PropertyList.Rotate}deg);padding:0;background-color: ${item.PropertyList.BackColor};border-radius:${item.PropertyList.BorderRadius}px;
+           <input class="moduleShape common-input" disabled="disabled" style="transform: rotate(${item.PropertyList.Rotate}deg);padding:0;background-color: ${item.PropertyList.BackColor};border-radius:${item.PropertyList.BorderRadius}px;
            border-style: ${item.PropertyList.Style};border-color: ${item.PropertyList.BorderColor}; border-width: ${item.PropertyList.BorderWidth}px;font-weight: ${item.PropertyList.FontWeight};text-decoration: ${item.PropertyList.TextDecoration};
            text-align:${item.PropertyList.TextAlign};font-weight: ${item.PropertyList.FontWeight};line-height: ${item.PropertyList.Height}px;opacity: ${Number(item.PropertyList.Opacity) / 100};
            box-shadow: ${item.PropertyList.BoxShadow};color: ${item.PropertyList.Color};font-size: ${item.PropertyList.FontSize}px;font-family: ${item.PropertyList.FontFamily};position:absolute;top:0px;left:0px" value='${item.PropertyList.Text}' onmousedown="inputdown(this,event,${index})" onblur="handleblur(event, ${index}, 'Text','menutype')" >
