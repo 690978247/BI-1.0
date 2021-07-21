@@ -1097,6 +1097,7 @@ async function renderRwtextbox(index) {
         await request.get(`/bi/${appId}/variables/${item.CheckData.equipmentId}/${item.CheckData.id}/${item.CheckData.name}/status`).then(res => {
           let Data = res.data.data[item.CheckData.name]
           if (JSON.stringify(res.data.data) !== "{}") {
+            item.DataList[i].flag = transFlag(item.DataList[i].flag)
             if (item.DataList[i].flag === '=') {
               if (Data == item.DataList[i].num) {
                 $(`#rwtextbox-text${index}`).val(res.data.data[item.CheckData.name])
@@ -1337,6 +1338,7 @@ async function renderCommonlamp(index) {
           // res.data.data[item.DataList[i].CheckData.id]= 0
           let Data = res.data.data[item.DataList[i].CheckData.name]
           if (JSON.stringify(res.data.data) !== "{}") {
+            item.DataList[i].flag = transFlag(item.DataList[i].flag)
             if (item.DataList[i].flag === '=') {
               if (item.DataList[i].num == Data) {
                 $(`#commonlamp${index}`).css('background-color', item.DataList[i].backColor)
@@ -1421,6 +1423,7 @@ async function renderEllipselamp(index) {
           if (res.data.data) {
             let Data = res.data.data[item.DataList[i].CheckData.name]
             if (JSON.stringify(res.data.data) !== '{}') {
+              item.DataList[i].flag = transFlag(item.DataList[i].flag)
               if (item.DataList[i].flag === '=') {
                 if (item.DataList[i].num == Data) {
                   $(`#ellipselamp${index}`).css('background-color', item.DataList[i].backColor)
@@ -1505,6 +1508,7 @@ async function renderDynamicText(index) {
           // res.data.data[item.DataList[i].CheckData.id]= 0
           let Data = res.data.data[item.DataList[i].CheckData.name]
           if (JSON.stringify(res.data.data) !== "{}") {
+            item.DataList[i].flag = transFlag(item.DataList[i].flag)
             if (item.DataList[i].flag === '=') {
               if (item.DataList[i].num == Data) {
                 $(`#dynamictext-text${index}`).text(item.DataList[i].presetText)
@@ -1513,31 +1517,31 @@ async function renderDynamicText(index) {
               }
             } else if (item.DataList[i].flag === '>=') {
               if (Data >= item.DataList[i].num) {
-                $(`#dynamictext-text${index}`).text(presetText)
+                $(`#dynamictext-text${index}`).text(item.DataList[i].presetText)
                 $(`#dynamictext-text${index}`).css('color', item.DataList[i].backColor)
                 times++
               }
             } else if (item.DataList[i].flag === '<=') {
               if (Data <= item.DataList[i].num) {
-                $(`#dynamictext-text${index}`).text(presetText)
+                $(`#dynamictext-text${index}`).text(item.DataList[i].presetText)
                 $(`#dynamictext-text${index}`).css('color', item.DataList[i].backColor)
                 times++
               }
             } else if (item.DataList[i].flag === '>') {
               if (Data > item.DataList[i].num) {
-                $(`#dynamictext-text${index}`).text(presetText)
+                $(`#dynamictext-text${index}`).text(item.DataList[i].presetText)
                 $(`#dynamictext-text${index}`).css('color', item.DataList[i].backColor)
                 times++
               }
             } else if (item.DataList[i].flag === '<') {
               if (Data < item.DataList[i].num) {
-                $(`#dynamictext-text${index}`).text(presetText)
+                $(`#dynamictext-text${index}`).text(item.DataList[i].presetText)
                 $(`#dynamictext-text${index}`).css('color', item.DataList[i].backColor)
                 times++
               }
             } else if (item.DataList[i].flag === '!=') {
               if (item.DataList[i].num != Data) {
-                $(`#dynamictext-text${index}`).text(presetText)
+                $(`#dynamictext-text${index}`).text(item.DataList[i].presetText)
                 $(`#dynamictext-text${index}`).css('color', item.DataList[i].backColor)
                 times++
               }
@@ -1576,6 +1580,7 @@ async function renderDataText(index) {
           res.data.data[item.CheckData.name] = res.data.data[item.CheckData.name].toFixed(dight)
             let Data = res.data.data[item.CheckData.name]
             if (JSON.stringify(res.data.data) !== "{}") {
+              item.DataList[i].flag = transFlag(item.DataList[i].flag)
               if (item.DataList[i].flag === '=') {
                 if (item.DataList[i].num == Data) {
                   $(`#datatextblock${index}`).text(res.data.data[item.CheckData.name])
@@ -1685,6 +1690,7 @@ async function renderImage(index) {
             if (res.data.data) {
               let Data = res.data.data[item.DataList[i].CheckData.name]
               if (JSON.stringify(res.data.data) !== "{}") {
+                item.DataList[i].flag = transFlag(item.DataList[i].flag)
                 if (item.DataList[i].flag === '=') {
                   if (Data == item.DataList[i].presetText) {
                     $(`#image-img${index}`).attr('src', item.DataList[i].img)
@@ -1733,6 +1739,12 @@ async function renderImage(index) {
       }
     }
   }
+}
+
+function transFlag(str) {
+  str = str.replace(/&gt;/, '>')
+  str = str.replace(/&lt;/, '<')
+  return str
 }
 
 // 清除折线图图表数据
