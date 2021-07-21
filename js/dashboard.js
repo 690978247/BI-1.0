@@ -893,17 +893,40 @@ function setTimer() {
         renderRwtextbox(index)
       }
       if (item.ControlType === 'piechart') {
-        renderPieChart(item)
+        Controls.Data.PieChartItemList.forEach(chart => {
+          if (chart.name === item.Name) {
+            if (chart.defaultDataConfig.datatype === '实时数据') {
+              renderPieChart(item)
+            }
+          }
+        })
       }
       if (item.ControlType === 'dashboardchart') {
-        renderDashChart(item)
+        Controls.Data.DashBoardChartItemList.forEach(chart => {
+          if (chart.name === item.Name) {
+            if (chart.defaultDataConfig.datatype === '实时数据') {
+              renderDashChart(item)
+            }
+          }
+        })
       }
       if (item.ControlType === 'linechart') {
-        renderLineChart(item)
+        Controls.Data.LineChartItemList.forEach(chart => {
+          if (chart.name === item.Name) {
+            if (chart.defaultDataConfig.datatype === '实时数据') {
+              renderLineChart(item)
+            }
+          }
+        })
       }
       if (item.ControlType === 'barchart') {
-        renderBarChart(item)
-
+        Controls.Data.BarChartItemList.forEach(chart => {
+          if (chart.name === item.Name) {
+            if (chart.defaultDataConfig.datatype === '实时数据') {
+              renderBarChart(item)
+            }
+          }
+        })
       }
 
     })
@@ -3212,18 +3235,6 @@ function renderPieChart(item) {
             return
           }
         }
-        // Controls.Data.PieChartItemList[cIndex].option.Variables.forEach(cf => {
-        // if(cf.CheckData){
-        //   postData.push({
-        //     deviceId: cf.CheckData.equipmentId,
-        //     variableCode: cf.CheckData.name,
-        //     variableId: cf.CheckData.id,
-        //   })
-        // }else{
-        //   return
-        // }
-
-        // })
         request.post(`/bi/${appId}/variables/status/real-time/data`, postData).then(res => {
           if (res.data.code !== 0) {
             // 清除图表数据
