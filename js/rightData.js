@@ -1099,12 +1099,24 @@ function dyRefreshTable(id, dataList, index, title) {
          <label ${dataList[i][key] == ''?'style="display:none"':''}>${dataList[i][key]}</label></td>`
 
       } else if (key == 'presetText') {
+        let inputType = 'text'
+        let types = ['image']
+        if (types.includes(Controls.ControlList[index].ControlType)) {
+          if (Controls.ControlList[index].DataList[i].CheckData) {
+            inputType = Controls.ControlList[index].DataList[i].CheckData.type === "string" ? 'text' : 'number'
+          } else {
+            inputType = 'number'
+          }
+        }
         html += `<td title="${dataList[i][key]}" onclick="dyTextEdit('${key}',${i},${index},'${id}')" id="${key+i+index+id}">
-         <input onchange="dyTextChange('${id}','${key}',${i},${index},this.value,'${title}')" value="${dataList[i][key]}" ${dataList[i][key] != ''?'style="display:none"':''}  type="text" autocomplete="off" placeholder="请输入"></input>
+         <input onchange="dyTextChange('${id}','${key}',${i},${index},this.value,'${title}')" type="${inputType}" value="${dataList[i][key]}" ${dataList[i][key] != ''?'style="display:none"':''}  type="text" autocomplete="off" placeholder="请输入"></input>
          <label ${dataList[i][key] == ''?'style="display:none"':''}>${dataList[i][key]}</label></td>`
 
       } else {
         let inputType = 'text'
+        if (key === 'num' || key === 'issuedValue') {
+          inputType = 'number'
+        }
         if (dataList[i].CheckData) {
           inputType = getTableInputType(dataList[i].CheckData.type)
         }

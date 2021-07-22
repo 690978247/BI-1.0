@@ -1638,7 +1638,12 @@ async function renderDataText(index) {
         await request.get(`/bi/${appId}/variables/${item.CheckData.equipmentId}/${item.CheckData.id}/${item.CheckData.name}/status`).then(res => {
           // res.data.data[item.CheckData.name] = 1
           if (res.data.data) {
-          res.data.data[item.CheckData.name] = res.data.data[item.CheckData.name].toFixed(dight)
+            try{
+              res.data.data[item.CheckData.name] = res.data.data[item.CheckData.name].toFixed(dight)
+            }catch(e){
+              console.log('error')
+            }
+
             let Data = res.data.data[item.CheckData.name]
             if (JSON.stringify(res.data.data) !== "{}") {
               item.DataList[i].flag = transFlag(item.DataList[i].flag)
@@ -1719,7 +1724,12 @@ async function renderDataText(index) {
     await request.get(`/bi/${appId}/variables/${item.CheckData.equipmentId}/${item.CheckData.id}/${item.CheckData.name}/status`).then(res => {
       // res.data.data[item.CheckData.name] = 1
       if (res.data.data) {
-        res.data.data[item.CheckData.name] = res.data.data[item.CheckData.name].toFixed(dight)
+        try{
+          res.data.data[item.CheckData.name] = res.data.data[item.CheckData.name].toFixed(dight)
+        }catch(e){
+          console.log('error')
+        }
+
         let Data = res.data.data[item.CheckData.name]
         $(`#datatextblock${index}`).text(res.data.data[item.CheckData.name])
         if (item.conCheck) {
