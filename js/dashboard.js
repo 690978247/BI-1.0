@@ -968,6 +968,37 @@ function manualTrigger(item, type) {
 
         }
       })
+
+      item.HistoryList.forEach(dd => {
+        if (dd.name.indexOf('linechart') !== -1) { // 折线图触发刷新
+          Controls.ControlList.forEach((cf, cfi) => {
+            if (cf.Name === dd.name) {
+              renderLineChart(cf)
+            }
+          })
+        } else if (dd.name.indexOf('barchart') !== -1) { // 柱状图触发刷新
+          Controls.ControlList.forEach((cf, cfi) => {
+            if (cf.Name === dd.name) {
+              renderBarChart(cf)
+            }
+          })
+        } else if (dd.name.indexOf('dashboardchart') !== -1) { // 仪表盘触发刷新
+          Controls.ControlList.forEach((cf, cfi) => {
+            if (cf.Name === dd.name) {
+              renderDashChart(cf)
+            }
+          })
+  
+        } else if (dd.name.indexOf('piechart') !== -1) { // 饼图触发刷新
+          Controls.ControlList.forEach((cf, cfi) => {
+            if (cf.Name === dd.name) {
+              renderPieChart(cf)
+            }
+          })
+  
+        }
+      })
+
     }
   } else {
     // 查询组件触发刷新
